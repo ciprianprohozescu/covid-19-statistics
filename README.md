@@ -1,5 +1,8 @@
 # covid-19-statistics
 
+Built with [Vue.js](https://vuejs.org/).
+Using [Google Charts](https://developers.google.com/chart) (+ [wrapper](https://www.npmjs.com/package/vue-google-charts)) and [Vue-multiselect](https://vue-multiselect.js.org/).
+
 ## Project setup
 ```
 npm install
