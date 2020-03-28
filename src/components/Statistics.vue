@@ -22,6 +22,9 @@
       :preserve-search="true" placeholder="Select countries" label="name" track-by="name" :preselect-first="true">
       </multiselect>
     </div>
+
+    <p>This project is open source. The source code is available on <a href="https://github.com/ciprianprohozescu/covid-19-statistics">GitHub</a>. 
+    To contribute, simply fork the repository and submit a pull request or create an issue. Thank you. :)</p>
   </div>
 </template>
 
@@ -80,7 +83,7 @@ export default {
     axios.get('data.json')
       .then(function (response) {
         // handle success
-        this.parseData(response.data);
+        this.parseData(response.data.records);
       }.bind(this))
       .catch(function (error) {
         // handle error
@@ -97,19 +100,20 @@ export default {
       let day = 0;
       let countriesCounter = -1;
 
+      data.sort((a, b) => (a['countriesAndTerritories'] > b['countriesAndTerritories']) ? -1 : 1);
+
       for (let i = data.length - 1; i >= 0; i--) {
         let record = data[i];
 
-        if (record['Countries and territories'].toLowerCase() != currentCountry.toLowerCase()) {
-          currentCountry = record['Countries and territories'];
-          currentCountry = currentCountry.charAt(0).toUpperCase() + currentCountry.slice(1).toLowerCase();
+        if (record['countriesAndTerritories'].toLowerCase() != currentCountry.toLowerCase()) {
+          currentCountry = record['countriesAndTerritories'].charAt(0).toUpperCase() + record['countriesAndTerritories'].slice(1).toLowerCase();
           day = 0;
           countriesCounter++;
 
           this.countries[countriesCounter] = {
             'name': currentCountry,
             'cases': [],
-            'startDate': record['DateRep'],
+            'startDate': record['dateRep'],
             'show': this.showCountries.includes(currentCountry) ? true : false,
           };
 
@@ -118,17 +122,13 @@ export default {
           }
         }
 
-        if (day > 0 || record['Cases'] > 0) {
-          this.countries[countriesCounter]['cases'][day] = record['Cases'];
+        if (day > 0 || record['cases'] > 0) {
+          this.countries[countriesCounter]['cases'][day] = parseInt(record['cases']);
           day++;
         }
       }
 
-      this.lastDate = data[0]['DateRep'];
-
-      this.countries = this.countries.reverse();
-
-      console.log(this.countries);
+      this.lastDate = data[0]['dateRep'];
 
       this.updateChart();
     },
@@ -165,8 +165,6 @@ export default {
           break;
         }
       }
-
-      console.log(this.chartData);
     }
   }
 }
