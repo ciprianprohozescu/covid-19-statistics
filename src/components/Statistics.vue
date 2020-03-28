@@ -19,7 +19,7 @@
     <div class="select">
       <label class="typo__label">Countries & territories</label>
       <multiselect v-model="selected" :options="countries" :multiple="true" :close-on-select="false" :clear-on-select="true" 
-      :preserve-search="true" placeholder="Select countries" label="name" track-by="name" :preselect-first="true">
+      :preserve-search="true" placeholder="Type to search..." label="name" track-by="name" :preselect-first="true">
       </multiselect>
     </div>
 
