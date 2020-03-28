@@ -4,7 +4,7 @@
     <h3>Last update: {{ lastDate }}</h3>
 
     <p>
-      Select countries from the dropdown list to view their epidemiological evolution on the chart. The point of origin is <strong>not</strong> a cronological date,
+      Select countries from the dropdown list to view their epidemiological evolution on the chart. The point of origin is <strong>not</strong> a chronological date,
       but the day each country got infected (apart from China, whose "day 0" is unknown). This approach allows us to compare the emergency response of countries
       and determine how well they performed on "day X from the first infection" in relation to others.
     </p>
